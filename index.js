@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require('cors')
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 
 app.use(cors())
 app.use(express.json())
@@ -41,6 +41,11 @@ async function run() {
       const query = {_id : new ObjectId(id)}
 
       const result = await productCollection.findOne(query)
+      res.send(result)
+    })
+
+    app.get('/highlights', async(req, res)=>{
+      const result = await productCollection.find().limit(4).toArray();
       res.send(result)
     })
 
